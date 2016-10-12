@@ -46,6 +46,10 @@ class MainProcessor		: public AudioAppComponent
 	//==========================================================================
 	//==========================================================================
 
+	//Function to set BaseFreq, modFreq is set as a
+	//multiple of baseFreq in a coarseFactor and a
+	//fineFactor. As Coarse is int gives harmonic
+	//relationships in contrast fine doesnt
 	void setFreq(float newFreq);
 	void setModLevel(float newLevelIndB);
 	void setLevel(float newLevelIndB);
@@ -54,14 +58,23 @@ class MainProcessor		: public AudioAppComponent
 	void setModTran(float newTran);
 	void setModTune(float newTune);
 	
+	
+	//When ever noteEvent is called, both modulator envelope
+	// and the general envelope are triggered to start
 	void noteEvent(bool isOn);
 	
+	//Freq can be allowed to move smooth through keyboard
+	//sort of portamento
 	void isFreqDiscrete(bool isOn);
+	
+	//Activates Breathh controller so that user can
+	//Use mic to modulate the main gain
 	void isBreathOn(bool isOn);
 	
 	//==========================================================================
 	//==========================================================================
 	
+	//Getters for GUI to draw stuff
 	float getFreq();
 	float getGain();
 	bool getNoteState();
@@ -76,6 +89,9 @@ class MainProcessor		: public AudioAppComponent
 	
 private:
 	
+	//This object is a holder for a value that is not
+	//allowed to change drastically instead of having a s
+	//moother for each variable
 	SmoothValue mainGain;
 	SmoothValue mainLevel;
 	SmoothValue modLevel;

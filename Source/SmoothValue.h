@@ -11,6 +11,10 @@
 #ifndef SMOOTHVALUE_H_INCLUDED
 #define SMOOTHVALUE_H_INCLUDED
 
+//class to hold variables that are not allowed to change drastically
+//it has a smoother function inside for that.
+
+
 
 class SmoothValue{
 public:
@@ -36,6 +40,7 @@ public:
 		return currentSample;
 	}
 	
+	// gets current value without computing smoothing
 	double get(){
 		return value;
 	}

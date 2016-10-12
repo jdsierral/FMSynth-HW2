@@ -14,15 +14,18 @@
 
 MainProcessor::MainProcessor()
 {
-	
+	// Initialize Oscillators and Envelopers
 	carOsc = new Oscillator(1.0f, 200.0f);
 	modOsc = new Oscillator(1.0f, 200.0f);
 	genEnv = new Enveloper(1.0f, 1.0f, 0.0f, 1.0f);
 	modEnv = new Enveloper(1.0f, 1.0f, 0.0f, 1.0f);
 	
+	//Initialize GUI
 	editor = new MainEditor(this);
 	addAndMakeVisible(editor);
 	
+	
+	//Set Some initial Values
 	mainGain.setValue(1);
 	mainLevel.setValue(1);
 	baseFreq.setValue(200);
@@ -47,12 +50,16 @@ MainProcessor::~MainProcessor(){
 //==========================================================================
 
 void MainProcessor::prepareToPlay (int samplesPerBlockExpected, double sampleRate) {
+	
+	//Pass sample Rate to objects that need it
 	carOsc->setSampleRate(sampleRate);
 	modOsc->setSampleRate(sampleRate);
 	
 	genEnv->setSampleRate(sampleRate);
 	modEnv->setSampleRate(sampleRate);
 	
+	
+	//set Consntant poles for smoothers
 	mainGain.setPole(0.99);
 	mainLevel.setPole(0.99);
 	baseFreq.setPole(0.99);
@@ -65,21 +72,23 @@ void MainProcessor::prepareToPlay (int samplesPerBlockExpected, double sampleRat
 
 void MainProcessor::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill) {
 	
+	
+	//If breath option is ON calculate the RMS of the input
+	//And smooth its value to set the general gain of the Synht
+	
 	if (breathOn) {
 		float newInEnv = bufferToFill.buffer->getRMSLevel(0, bufferToFill.startSample, bufferToFill.numSamples);
 		
 		inEnv = (inEnv * 9 + newInEnv)/10;
+		
+		// if The input value is over some value trigger NoteOn
+		// if it returns down from that value trigger noteOff
 		if (inEnv > 0.05 && !genEnv->isOn()) noteEvent(true);
 		if (inEnv < 0.05 && genEnv->isOn()) noteEvent(false);
-		
-		
 		mainGain.setValue(5 * inEnv);
-		
-//		mainGain.setValue(bufferToFill.buffer->getRMSLevel(0, bufferToFill.startSample, bufferToFill.numSamples));
-		
-		
 	}
 	
+	//clear input buffer as it is not used after breath analysis
 	bufferToFill.clearActiveBufferRegion();
 	
 	float* const outL = bufferToFill.buffer->getWritePointer(0, bufferToFill.startSample);
@@ -88,6 +97,10 @@ void MainProcessor::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFil
 	const int bufSize = bufferToFill.numSamples;
 	
 	for (int i = 0; i < bufSize; i++) {
+		
+		//setSmoothed Carrier Oscilator Frequency for FM
+		//the modFreq is multiplied by the index (modLevel)
+		//and by the modEnv
 		carOsc->setFreq(baseFreq.tick() +
 						modOsc->tick() * modLevel.tick() * modEnv->tick());
 		outL[i] = carOsc->tick() *
@@ -134,8 +147,6 @@ void MainProcessor::setGain(float newGain) {
 }
 
 void MainProcessor::setModTran(float newTran){
-	
-	//reCheck if transposition and tunning should be done in semitones and cents or in regular multiplication form
 	modTran = newTran;
 }
 void MainProcessor::setModTune(float newTune){
@@ -146,11 +157,9 @@ void MainProcessor::noteEvent(bool isOn) {
 	if (isOn) {
 		modEnv->start();
 		genEnv->start();
-		std::cout<<"noteOn"<<std::endl;
 	} else {
 		modEnv->stop();
 		genEnv->stop();
-		std::cout<<"noteOff"<<std::endl;
 	}
 }
 

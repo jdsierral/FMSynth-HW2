@@ -11,6 +11,7 @@
 #ifndef GUISTYLE_H_INCLUDED
 #define GUISTYLE_H_INCLUDED
 
+//Class to determine most of the graphic propoerties of GUI
 
 class MyLookAndFeel		: public LookAndFeel_V3
 {
