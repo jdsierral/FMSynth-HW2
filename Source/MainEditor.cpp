@@ -14,6 +14,8 @@
 MainEditor::MainEditor (MainProcessor* p)
 : processor(p)
 {
+	//Creation of all of the sliders
+	
 	addAndMakeVisible (fineTuneSlider = new Slider ("Fine Tune Slider"));
 	fineTuneSlider->setRange (0, 1, 0);
 	fineTuneSlider->setSliderStyle (Slider::LinearHorizontal);
@@ -220,7 +222,10 @@ MainEditor::MainEditor (MainProcessor* p)
 	fineToneLabel->addListener (this);
 	
 	//==========================================================================
+	
+	//sets general look and feel
 	setLookAndFeel(&myLookAndFeel);
+	//starts timer for gui operations at 50ms rate
 	startTimer(50);
 	
 	guiFreq.setPole(0.99);
@@ -264,7 +269,7 @@ MainEditor::~MainEditor()
 //==============================================================================
 void MainEditor::paint (Graphics& g)
 {
-	
+	//general painting for GUI
 	g.fillAll (Colours::white);
 	
 	g.setColour (Colours::black);
@@ -306,6 +311,7 @@ void MainEditor::paint (Graphics& g)
 				Justification::centred, true);
 	
 	
+	//color the keyboard down at the gui
 	g.setColour (light);
 	g.fillRect (playSpaceX, playSpaceY, playSpaceWidth, playSpaceHeight);
 	
@@ -323,6 +329,7 @@ void MainEditor::paint (Graphics& g)
 	const float centerY = - 3 + levelSlider->getY() + levelSlider->getHeight()/2.0f;
 	
 	
+	//Generate signal-like wave starting from center of main gainSlider
 	
 	g.setColour(Colour (0xFF8C8C8C));
 	for (int i = 0; i < 20; i++){
@@ -484,6 +491,7 @@ void MainEditor::labelTextChanged (Label* label)
 
 void MainEditor::mouseDown (const MouseEvent& e)
 {
+	//checks for new freq and gain if mouse is inside box
 	if (e.position.x >= playSpaceX && e.position.x <= playSpaceX + playSpaceWidth) {
 		if (e.position.y >= playSpaceY && e.position.y <= playSpaceY + playSpaceHeight) {
 			processor->noteEvent(true);
@@ -494,12 +502,15 @@ void MainEditor::mouseDown (const MouseEvent& e)
 
 void MainEditor::mouseDrag (const MouseEvent& e)
 {
+	//generates midi note according to position and transforms it to frequencies
 	int midiNote = (int)13 * (e.position.x - playSpaceX)/playSpaceWidth + 60 + 12 * octave;
 	
+	//sets the note being played to be shown on a label
 	noteLabel->setText(MidiMessage::getMidiNoteName(midiNote, true, true, 4), dontSendNotification);
 	
 	processor->setFreq(MidiMessage::getMidiNoteInHertz(midiNote));
 	
+	//if breath is not activaded the height will determine the gain
 	if (!breathButton->getToggleState()) {
 		int level = 20 * (float)((e.position.y - playSpaceY)/playSpaceHeight) - 20;
 		processor->setGain(level);
@@ -512,6 +523,7 @@ void MainEditor::mouseUp (const MouseEvent&)
 }
 
 void MainEditor::mouseMove (const MouseEvent& e) {
+	//if breath is on there is no need to press the mouse to get new freq
 	if (breathButton->getToggleState()) {
 		if (e.position.y >= playSpaceY && e.position.y <= playSpaceY + playSpaceHeight) {
 			
@@ -525,6 +537,9 @@ void MainEditor::mouseMove (const MouseEvent& e) {
 }
 
 void MainEditor::timerCallback() {
+	
+	//timerCallback for general gui stuff
+	//it is called at a relative small rate of 20hz
 	
 	if (!mainLevelLabel->isMouseOver() && !mainLevelLabel->isBeingEdited()) {
 		if(levelSlider->isMouseOverOrDragging())
@@ -581,7 +596,7 @@ void MainEditor::timerCallback() {
 		}
 	}
 
-	
+	//counter for dummy signal being drawn in gui
 	counter++;
 	if (processor->getNoteState()) {
 		setGuiFreq(10000/processor->getFreq());
@@ -593,7 +608,7 @@ void MainEditor::timerCallback() {
 }
 
 
-
+	//gets gui level for duumi signal
 void MainEditor::setGuiLevel(float newGuiLevel) {
 	guiLevel.setValue(newGuiLevel);
 	//	std::cout<<guiLevel.get()<<std::endl;

@@ -39,6 +39,10 @@ void Oscillator::setComplexity(float newComp) {
 }
 
 float Oscillator::tick(){
+	
+	// Notice calculations through potential functions to generate distortio or harmonic complexity.
+	// having a positive value for complexity gives a narrower pulse like signal
+	// having a negative value gives a broader one similar to a square wave
 	float tempAng = angle;
 	angle = (tempAng + angleDelta > PIx2 ? tempAng + angleDelta - PIx2 : tempAng + angleDelta);
 	float sine = std::sin(angle);

@@ -20,6 +20,8 @@ public:
 	void setSampleRate (double newSampleRate);
 	void setFreq (float newFreq);
 	void setGain (float gainInDecibels);
+	
+	//Complexity is a nonlinear operation that causes distortion to add harmonic complexity
 	void setComplexity (float comp);
 	float tick();
 	

@@ -134,10 +134,12 @@ float Enveloper::tick(){
 	return level;
 }
 
+//returns the current value without computing a new one
 float Enveloper::get() {
 	return level;
 }
 
+//returns true if the envelope is not off
 bool Enveloper::isPlaying() {
 	if (curState == off) return false;
 	else return true;
