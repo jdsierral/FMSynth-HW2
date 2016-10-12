@@ -7,12 +7,15 @@
 This is an FM synthesis synthesizer.
 It is intended to be played with your mouse on a single box on the lower part of it showing a complete octave of musical notes (C to C) 
 
-The sinusoids involved in the synthesis are related through musical intervals expressed in semitones and
-tuning intervals expressed in cents.
+The carrier sinusoid and the moudlator sinusoid are related frequencywise through a multiplier. A coarse multiplier gives harmincally related partials while the fine multiplier gives harmonically unrelated partials
 
-The user also has access to each of the partial's gain.
+A general ADSR manages the envelope of the output while a second ADSR modulates the fm index therefore chaning the amount of harmonics in the output
 
-A general asdr manages the envelope of the sum of the sinusoids
+Additionally each of the sinusoids has a "complexity" parameter which is a distortion generator.
+
+$y=\frac{\left| \left( \sin \left( x \right) \right) \right|^{1.2^{20}}}{1}$
+
+Additionally the user also has the possibility to use the integrated keyboard or to use an analog input to modulate the mainGain output. Probably by blowing a microphone or using a piezzo as a percusive instrument.
 
 Some other functionalities include an octave selector and a Main Level fader
 
@@ -21,6 +24,8 @@ Some other functionalities include an octave selector and a Main Level fader
 It is intended to be played with a mouse or two as shown in the video.
 Horizontal position of the mouse inside the playable area determines the basefrequency and therefore all of the frequencies by all of the sinusoids
 Vertical position of the mouse determine the volume or "velocity" of each note. However this value may change during the course of a note.
+It is also possible to be played through a piezzo connected to an audio input with the "breath" option.
+Or it is possible to blow on the microphone to set the mainGain Value
 
 ## Code Description
 
@@ -41,8 +46,8 @@ Take into account that this requires a circular inclusion of the processor's hea
 
 see this youTube video to check how the synthesizer works and sounds ;)
 
-https://youtu.be/bd0QLtfIBxQ
 
+https://youtu.be/aRnZtbJNLMI
 
 ## History
 
