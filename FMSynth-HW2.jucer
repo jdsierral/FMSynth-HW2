@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="yyqVvi" name="FMSynth-HW2" projectType="guiapp" version="1.0.0"
+              bundleIdentifier="com.JuanSaudio.FMSynthHW2" includeBinaryInAppConfig="1"
+              jucerVersion="4.2.4" companyName="JuanSaudio" companyWebsite="www.JuanSaudio.com"
+              companyEmail="jdsierral@JuanSaudio.com">
+  <MAINGROUP id="x8w3xN" name="FMSynth-HW2">
+    <GROUP id="{4244A1F4-7306-E52B-9FA2-74FDA7A3D39E}" name="Source">
+      <FILE id="tIqeBD" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="lAfLLl" name="MainProcessor.cpp" compile="1" resource="0"
+            file="Source/MainProcessor.cpp"/>
+      <FILE id="qlCrMM" name="MainProcessor.h" compile="0" resource="0" file="Source/MainProcessor.h"/>
+      <FILE id="pVqdu6" name="MainEditor.cpp" compile="1" resource="0" file="Source/MainEditor.cpp"/>
+      <FILE id="auy53x" name="MainEditor.h" compile="0" resource="0" file="Source/MainEditor.h"/>
+      <GROUP id="{F8C00830-89AC-5933-43C5-9E1640C7AA20}" name="Tools">
+        <FILE id="C3hQIC" name="guiStyle.h" compile="0" resource="0" file="Source/guiStyle.h"/>
+        <FILE id="IDH54I" name="SmoothValue.h" compile="0" resource="0" file="Source/SmoothValue.h"/>
+        <FILE id="cnglZq" name="Enveloper.cpp" compile="1" resource="0" file="Source/Enveloper.cpp"/>
+        <FILE id="mf9p69" name="Enveloper.h" compile="0" resource="0" file="Source/Enveloper.h"/>
+        <FILE id="ccHgST" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
+        <FILE id="BqDAu5" name="Oscillator.h" compile="0" resource="0" file="Source/Oscillator.h"/>
+        <FILE id="qUnsDU" name="GUIGuide.cpp" compile="1" resource="0" file="Source/GUIGuide.cpp"/>
+        <FILE id="eniJMu" name="GUIGuide.h" compile="0" resource="0" file="Source/GUIGuide.h"/>
+        <FILE id="KRkjMK" name="Smoother.h" compile="0" resource="0" file="Source/Smoother.h"/>
+      </GROUP>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="FMSynth-HW2"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="FMSynth-HW2"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_events" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_video" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../Juce-Grapefruit/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0"/>
+  </MODULES>
+  <JUCEOPTIONS/>
+</JUCERPROJECT>
